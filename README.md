@@ -6,7 +6,7 @@
 
 Для формирования интерфейса использовала Qt Designer
 
-Скачиваkf с 
+Скачивала с 
 https://build-system.fman.io/qt-designer-download
 
 Сделала оболочку месенджера.
