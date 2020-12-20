@@ -27,7 +27,7 @@ def status():
     dt = datetime.now()
     return {
         'status': True,
-        'name': 'VVL-Messenger',
+        'name': 'VVL-Chat',
         'time': time.time(),
         'time_v': dt.strftime('%Y/%m/%d %H:%M'),
     }
