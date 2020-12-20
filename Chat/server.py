@@ -19,7 +19,7 @@ db = [
 
 @app.route("/")
 def hello():
-    return "Hello, World!"
+    return "Привет, это VVL-Chat!"
 
 
 @app.route("/status")
@@ -28,8 +28,9 @@ def status():
     return {
         'status': True,
         'name': 'VVL-Messenger',
-        'time4': dt.strftime('%Y/%m/%d %H:%M'),
-        }
+        'time': time.time(),
+        'time_v': dt.strftime('%Y/%m/%d %H:%M'),
+    }
 
 
 @app.route("/send", methods=['POST'])
