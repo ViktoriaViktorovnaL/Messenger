@@ -27,15 +27,9 @@ def status():
     dt = datetime.now()
     return {
         'status': True,
-        'name': 'Skillbox Messenger',
-        'time': time.time(),
-        'time1': time.asctime(),
-        'time2': dt,
-        'time3': str(dt),
+        'name': 'VVL-Messenger',
         'time4': dt.strftime('%Y/%m/%d %H:%M'),
-        'time5': dt.isoformat(),
-        'time6': datetime.utcnow().isoformat(),
-    }
+        }
 
 
 @app.route("/send", methods=['POST'])
