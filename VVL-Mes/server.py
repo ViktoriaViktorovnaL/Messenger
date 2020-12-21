@@ -1,6 +1,3 @@
-import time
-from datetime import datetime
-
 from flask import Flask, request, abort
 
 app = Flask(__name__)
