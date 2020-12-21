@@ -1,10 +1,9 @@
 from datetime import datetime
 
 import requests
-import os, PyQt5
-from PyQt5 import QtCore, QtWidgets
+import sys, os, PyQt5
+from PyQt5 import QtCore, QtGui, QtWidgets
 import ui_imagedialog
-
 
 pyqt = os.path.dirname(PyQt5.__file__)
 os.environ['QT_PLUGIN_PATH'] = os.path.join(pyqt, "Qt/plugins")
@@ -33,37 +32,39 @@ class WorkApp(QtWidgets.QMainWindow, ui_imagedialog.Ui_MainWindow):
 
         response_data = response.json()  # {'messages': messages}
 
+        self.print_contact(self.lineEdit.text())
+
         for message in response_data['messages']:
-            self.print_contact(message['sender'])
-            self.print_message(message)
-            self.after = message['time']
+            self.print_message(self.lineEdit.text(), self.lineEdit_2.text(), message)
 
 
     def print_message(self, sender, receiver, message):
-        if message['sender'] == sender and message['receiver'] == receiver or message['sender'] == receiver and message['receiver'] == sender:
+        if ((message['sender'] == sender and message['receiver'] == receiver)
+                or (message['sender'] == receiver and message['receiver'] == sender)):
             beauty_time = datetime.fromtimestamp(message['time'])
             beauty_time = beauty_time.strftime('%Y/%m/%d %H:%M')
-            self.textBrowser.append(beauty_time + ' ' + message['name'])
+            self.textBrowser.append(beauty_time + ' ' + message['sender'])
             self.textBrowser.append(message['text'])
             self.textBrowser.append('')
 
 
-    def print_contact(self, sender, message):
+    def print_contact(self, sender):
         try:
-            response = requests.get(self.url + '/messages',
-                                    params={'after': self.after})
+            response = requests.get(self.url + '/messages')
         except:
             return
 
         response_data = response.json()  # {'messages': messages}
 
         for message in response_data['messages']:
-            contact_list = set()
+            contact_list = []
             if message['sender'] == sender:
                 a = message['receiver']
-                contact_list.add(a)
-            self.listView.append('\n'.join(contact_list))
-            self.listView.append('')
+                contact_list.append(a)
+        c_set = set(contact_list)
+        self.textBrowser_2.append('\n'.join(c_set))
+        self.textBrowser_2.append('')
+
 
 
     def send_message(self):
