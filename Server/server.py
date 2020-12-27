@@ -3,7 +3,11 @@ from datetime import datetime
 
 from flask import Flask, request, abort
 
+# FLASKR_SETTINGS = 'FLASKR_SETTINGS.cfg'
+
 app = Flask(__name__)
+app.config.from_object(__name__)
+app.config.from_pyfile('FLASKR_SETTINGS.cfg')
 
 db = []
 c_l = ['Вика', 'Кристина', 'Костя', 'Таня', 'Саша', 'Алиса', 'Денис', 'Максим']
@@ -80,6 +84,4 @@ def get_contacts():
     return {'contacts': contacts_list}
 
 
-if __name__ == '__server__':
-    app.run()
-
+app.run()
